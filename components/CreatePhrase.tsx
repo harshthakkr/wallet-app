@@ -1,12 +1,13 @@
 import copyIcon from "@/public/copyIcon.svg";
 import Image from "next/image";
 import { toast } from "sonner";
+import Number from "./Number";
 
 interface PhrasesProps {
   mnemonicArr: string[];
 }
 
-const Phrases = ({ mnemonicArr }: PhrasesProps) => {
+const CreatePhrase = ({ mnemonicArr }: PhrasesProps) => {
   return (
     <div
       onClick={() => {
@@ -23,16 +24,16 @@ const Phrases = ({ mnemonicArr }: PhrasesProps) => {
       </div>
       <div className="grid grid-cols-6 gap-3">
         {mnemonicArr.map((phrase: string, i: number) => (
-          <span
+          <div
             key={i}
             className="bg-gray-800 w-40 px-4 py-4 rounded-xl hover:bg-gray-700"
           >
-            <span className="text-gray-400 mr-4">{i + 1}&#46;</span> {phrase}
-          </span>
+            <Number digit={i + 1} /> {phrase}
+          </div>
         ))}
       </div>
     </div>
   );
 };
 
-export default Phrases;
+export default CreatePhrase;

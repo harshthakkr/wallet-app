@@ -5,7 +5,7 @@ interface ButtonProps {
   text: string;
 }
 
-const ChooseWordsButton = ({ prop, setProp, curr, text }: ButtonProps) => {
+const WordChoiceButton = ({ prop, setProp, curr, text }: ButtonProps) => {
   return (
     <button
       onClick={() => setProp(prop)}
@@ -18,4 +18,4 @@ const ChooseWordsButton = ({ prop, setProp, curr, text }: ButtonProps) => {
   );
 };
 
-export default ChooseWordsButton;
+export default WordChoiceButton;

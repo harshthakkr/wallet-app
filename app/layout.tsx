@@ -20,8 +20,10 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <Toaster />
-      <body>{children}</body>
+      <body>
+        <Toaster />
+        {children}
+      </body>
     </html>
   );
 }
