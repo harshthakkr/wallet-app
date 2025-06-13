@@ -1,7 +1,7 @@
 "use client";
 
 import Button from "@/components/Button";
-import { generateMnemonic, mnemonicToSeedSync } from "bip39";
+import { generateMnemonic } from "bip39";
 import logo from "@/public/logo.png";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -12,6 +12,7 @@ import Description from "@/components/Description";
 import InputPhrase from "@/components/InputPhrase";
 import CreatePhrase from "@/components/CreatePhrase";
 import BackButton from "@/components/BackButton";
+import { useRouter } from "next/navigation";
 
 const Onboarding = () => {
   const [activeView, setActiveView] = useState<"create" | "login" | null>(null);
@@ -20,11 +21,18 @@ const Onboarding = () => {
   const [phraseInput, setPhraseInput] = useState<string[]>([]);
   const [isChecked, setIsChecked] = useState<boolean>(false);
 
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push("/dashboard");
+    localStorage.setItem("mnemonic-phrase", mnemonicArr.join(" "));
+  };
+
   useEffect(() => {
     if (activeView === "create") {
       const mnemonic = generateMnemonic(is12Words ? 128 : 256);
+      console.log(mnemonic);
       setMnemonicArr(mnemonic.split(" "));
-      const seed = mnemonicToSeedSync(mnemonic);
     }
     if (activeView === "login") {
       setPhraseInput(new Array(is12Words ? 12 : 24).fill(""));
@@ -104,7 +112,11 @@ const Onboarding = () => {
                 <polyline points="20 6 9 17 4 12"></polyline>
               </svg>
             </div>
-            <OnboardingButton text="Proceed" isChecked={isChecked} />
+            <OnboardingButton
+              text="Next"
+              isChecked={isChecked}
+              onclick={handleClick}
+            />
           </div>
         </div>
       )}
@@ -131,7 +143,11 @@ const Onboarding = () => {
               />
             </div>
             <InputPhrase prop={phraseInput} setProp={setPhraseInput} />
-            <OnboardingButton text="Import" />
+            <OnboardingButton
+              text="Import"
+              isChecked={true}
+              onclick={handleClick}
+            />
           </div>
         </div>
       )}
