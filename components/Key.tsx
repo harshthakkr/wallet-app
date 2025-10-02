@@ -1,6 +1,4 @@
-import showIcon from "@/public/eye.svg";
-import hideIcon from "@/public/eye-off.svg";
-import Image from "next/image";
+import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -24,9 +22,9 @@ const Key = ({ title, text }: { title: string; text: string }) => {
         {title === "Private Key" && (
           <button onClick={() => setIsHidden(!isHidden)}>
             {isHidden ? (
-              <Image src={showIcon} alt="show icon" />
+              <Eye size={20} color="gray" />
             ) : (
-              <Image src={hideIcon} alt="hide icon" />
+              <EyeOff size={20} color="gray" />
             )}
           </button>
         )}

@@ -18,7 +18,6 @@ const Onboarding = () => {
   const [activeView, setActiveView] = useState<"create" | "login" | null>(null);
   const [is12Words, setIs12Words] = useState<boolean>(true);
   const [mnemonicArr, setMnemonicArr] = useState<string[]>([]);
-  const [phraseInput, setPhraseInput] = useState<string[]>([]);
   const [isChecked, setIsChecked] = useState<boolean>(false);
 
   const router = useRouter();
@@ -31,11 +30,10 @@ const Onboarding = () => {
   useEffect(() => {
     if (activeView === "create") {
       const mnemonic = generateMnemonic(is12Words ? 128 : 256);
-      console.log(mnemonic);
       setMnemonicArr(mnemonic.split(" "));
     }
     if (activeView === "login") {
-      setPhraseInput(new Array(is12Words ? 12 : 24).fill(""));
+      setMnemonicArr(new Array(is12Words ? 12 : 24).fill(""));
     }
   }, [activeView, is12Words]);
 
@@ -75,18 +73,7 @@ const Onboarding = () => {
           <div className="flex flex-col gap-4 items-center">
             <SecondaryHeader text="Your secret recovery phrase" />
             <div className="flex gap-x-1">
-              <WordChoiceButton
-                prop={true}
-                setProp={setIs12Words}
-                curr={is12Words}
-                text="Use 12 words"
-              />
-              <WordChoiceButton
-                prop={false}
-                setProp={setIs12Words}
-                curr={is12Words}
-                text="Use 24 words"
-              />
+              <WordChoiceButton prop={is12Words} setProp={setIs12Words} />
             </div>
             <CreatePhrase mnemonicArr={mnemonicArr} />
             <div className="flex gap-2">
@@ -129,20 +116,18 @@ const Onboarding = () => {
               <Description text="Enter your phrase" />
             </div>
             <div>
-              <WordChoiceButton
-                prop={true}
-                setProp={setIs12Words}
-                curr={is12Words}
-                text="Use 12 words"
-              />
-              <WordChoiceButton
-                prop={false}
-                setProp={setIs12Words}
-                curr={is12Words}
-                text="Use 24 words"
-              />
+              <WordChoiceButton prop={is12Words} setProp={setIs12Words} />
+              <button
+                onClick={async () => {
+                  const inputPhrase = await navigator.clipboard.readText();
+                  setMnemonicArr(inputPhrase.split(" "));
+                }}
+                className="bg-[#324ea2] px-6 py-3 rounded-xl"
+              >
+                Paste
+              </button>
             </div>
-            <InputPhrase prop={phraseInput} setProp={setPhraseInput} />
+            <InputPhrase prop={mnemonicArr} setProp={setMnemonicArr} />
             <OnboardingButton
               text="Import"
               isChecked={true}

@@ -1,7 +1,6 @@
-import copyIcon from "@/public/copyIcon.svg";
-import Image from "next/image";
 import { toast } from "sonner";
 import Number from "./Number";
+import { Copy } from "lucide-react";
 
 interface PhrasesProps {
   mnemonicArr: string[];
@@ -12,14 +11,14 @@ const CreatePhrase = ({ mnemonicArr }: PhrasesProps) => {
     <div
       onClick={() => {
         navigator.clipboard.writeText(
-          mnemonicArr.toString().replaceAll(",", "")
+          mnemonicArr.toString().replaceAll(",", " ")
         );
         toast.success("Copied to clipboard");
       }}
       className="border border-gray-800 p-4 rounded-2xl cursor-pointer"
     >
       <div className="flex items-center gap-2 mb-4">
-        <Image src={copyIcon} alt="Copy icon" height={24} width={24} />
+        <Copy size={20} color="gray" />
         <p className="text-gray-400">Click anywhere to copy it</p>
       </div>
       <div className="grid grid-cols-6 gap-3">

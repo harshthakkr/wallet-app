@@ -1,5 +1,4 @@
-import Image from "next/image";
-import backIcon from "@/public/backIcon.svg";
+import { ArrowLeft } from "lucide-react";
 
 interface ButtonProps {
   setProp: React.Dispatch<React.SetStateAction<"create" | "login" | null>>;
@@ -8,7 +7,7 @@ interface ButtonProps {
 const BackButton = ({ setProp }: ButtonProps) => {
   return (
     <button onClick={() => setProp(null)}>
-      <Image src={backIcon} alt="back icon" />
+      <ArrowLeft size={20} />
     </button>
   );
 };
